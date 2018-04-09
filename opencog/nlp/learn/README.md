@@ -1,6 +1,7 @@
 Language Learning
 =================
 Linas Vepstas December 2013
+
 Updated April 2018 (Claudia Castillo & Andres Suarez)
 
 Current project, under construction. See the [language learning wiki]
