@@ -7,8 +7,14 @@
 Current project, under construction. See the [language learning wiki]
 (http://wiki.opencog.org/w/Language_learning)
 for an alternate overview.
- 
-Summary
+
+# Table of Contents
+1. [Summary](#summary)
+  1. [UNIX]
+2. [Setting up the AtomSpace](#setting-up-the-atomspace)
+3. [Bulk Text Parsing](#bulk-text-parsing)
+
+##Summary
 -------
 The goal of the project is to build a system that can learn parse
 dictionaries for different languages, and possibly do some rudimentary
@@ -60,7 +66,7 @@ Thus, operating the system requires three basic steps:
 Each of these is described in greater detail in separate sections below.
 
  
-Setting up the AtomSpace
+##Setting up the AtomSpace
 ------------------------
 This section describes how to set up the atomspace to collect
 statistics. Most of it revolves around setting up postgres, and for this
@@ -210,7 +216,7 @@ OBS) The current pipeline for Chinese text requires word segmentation
    disables the addition of spaces between hanzi characters.
 
 
-Bulk Text Parsing
+##Bulk Text Parsing
 -----------------
 
 This section describes how to feed text into the pipeline. To do
