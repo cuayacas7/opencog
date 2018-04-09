@@ -1,20 +1,23 @@
- 
-                   Language Learning
-                   -----------------
-             Linas Vepstas December 2013
-  Updated March 2018 (Claudia Castillo & Andres Suarez)
+Language Learning
+=================
+Linas Vepstas December 2013
+Updated April 2018 (Claudia Castillo & Andres Suarez)
 
 Current project, under construction. See the [language learning wiki]
 (http://wiki.opencog.org/w/Language_learning)
 for an alternate overview.
 
-# Table of Contents
+Table of Contents
+-----------------
 1. [Summary](#summary)
-  1. [UNIX]
 2. [Setting up the AtomSpace](#setting-up-the-atomspace)
 3. [Bulk Text Parsing](#bulk-text-parsing)
+4. [Mutual Information of Word Pairs](#mutual-information-of-word-pairs)
+5. [Minimum Spanning Tree Parsing](#minimum-spanning-tree-parsing)
+6. [Exploring Connector Sets](#exploring-connector-sets)
+7. [Setting up a Docker Container](#setting-up-a-docker-container)
 
-##Summary
+Summary
 -------
 The goal of the project is to build a system that can learn parse
 dictionaries for different languages, and possibly do some rudimentary
@@ -66,7 +69,7 @@ Thus, operating the system requires three basic steps:
 Each of these is described in greater detail in separate sections below.
 
  
-##Setting up the AtomSpace
+Setting up the AtomSpace
 ------------------------
 This section describes how to set up the atomspace to collect
 statistics. Most of it revolves around setting up postgres, and for this
@@ -216,7 +219,7 @@ OBS) The current pipeline for Chinese text requires word segmentation
    disables the addition of spaces between hanzi characters.
 
 
-##Bulk Text Parsing
+Bulk Text Parsing
 -----------------
 
 This section describes how to feed text into the pipeline. To do
@@ -347,7 +350,7 @@ steps will require passing text through the link-grammar parser anyway,
 so we may as well start using it right away. 
 
 Thus, you may want to reduce the amount of data that is collected. Currently,
-the `observe-text` function in 'scm/link-pipeline.scm` collects counts
+the `observe-text` function in `scm/link-pipeline.scm` collects counts
 on four different kinds of structures:
  
    * Word counts -- how often a word is seen.
@@ -456,7 +459,7 @@ This is fast, takes a couple of minutes.
  select count(uuid) from atoms where type = 27; gives 5050847 (5M pairs EvaluationLink)
 
 
-Minimum Spanning Tree parsing
+Minimum Spanning Tree Parsing
 -----------------------------
 
 The MST parser discovers the minimum spanning tree that connects the
@@ -613,8 +616,8 @@ After this, clusterization and feedback steps should be performed,
 but for now you are on your own.. Good luck!!
 
 
-Setup a Docker Container
-------------------------
+Setting up a Docker Container
+-----------------------------
 
 Before you follow the next steps make sure you have cloned the repositories
 and installed OpenCog (opencog, atomspace, cogutil) in your machine.
@@ -690,4 +693,3 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
     ```
 IF EVERYTHING WORKED FINE YOU ARE READY TO WORK (go to Bulk Text Parsing),
 OTHERWISE GO BACK TO STEP 0 (or fix your bug if you happen to know what went wrong)!!
-
