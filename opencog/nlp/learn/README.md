@@ -32,20 +32,20 @@ scientific notes and results is in the `learn-lang-diary` directory.
 
 The basic algorithmic steps, as implemented so far, are as follows:
 
->A) Ingest a lot of raw text, such as novels and narrative literature,
->   and count the occurrence of nearby word-pairs.
->
->B) Compute the mutual information (mutual entropy) between the word-pairs.
->
->C) Use a Minimum-Spanning-Tree algorithm to obtain provisional parses
->   of sentences. This requires ingesting a lot of raw text, again.
->   (Independently of step A)
->
->D) Extract linkage disjuncts from the parses, and count their frequency.
->
->E) Use maximum-entropy principles to merge similar linkage disjuncts.
->   This will also result in sets of similar words. Presumably, the
->   sets will roughly correspond to nouns, verbs, adjectives, and so-on.
+* **A)** Ingest a lot of raw text, such as novels and narrative literature,
+   and count the occurrence of nearby word-pairs.
+
+* **B)** Compute the mutual information (mutual entropy) between the word-pairs.
+
+* **C)** Use a Minimum-Spanning-Tree algorithm to obtain provisional parses
+   of sentences. This requires ingesting a lot of raw text, again.
+   (Independently of step A)
+
+* **D)** Extract linkage disjuncts from the parses, and count their frequency.
+
+* **E)** Use maximum-entropy principles to merge similar linkage disjuncts.
+   This will also result in sets of similar words. Presumably, the
+   sets will roughly correspond to nouns, verbs, adjectives, and so-on.
 
 Currently, the software implements steps A, B, C and D. Step E is
 a topic of current research; its not entirely clear what the best
@@ -80,12 +80,12 @@ This section describes how to set up the atomspace to collect
 statistics. Most of it revolves around setting up postgres, and for this
 you have two options:
 
->  A. You can choose to install everything directly on your machine,
->  in which case you should just continue reading this section, or
->
->  B. You can follow the instructions in the 'Setup a Docker Container'
->  section below to setup a docker container with all the environment
->  needed to run the ULL ready for you to use.
+   1. You can choose to install everything directly on your machine,
+   in which case you should just continue reading this section, or
+
+  2. You can follow the instructions in the [Setup a Docker Container](set-up-a-docker-container)
+  section below to setup a docker container with all the environment
+  needed to run the ULL ready for you to use.
 
 If you choose the second option go to the section [Bulk Text Parsing](#bulk-text-parsing)
 once you have your container working.
@@ -118,12 +118,12 @@ once you have your container working.
    git checkout stable-2.2
 ```
    Earlier versions have problems of various sorts. Version 2.0.11
-   will quickly crash with the error message: `guile: hashtab.c:137:
-   vacuum_weak_hash_table: Assertion 'removed <= len' failed.`
+   will quickly crash with the error message: 
+   > guile: hashtab.c:137: vacuum_weak_hash_table: Assertion 'removed <= len' failed.
  
    Also par-for-each hangs:
    https://debbugs.gnu.org/cgi/bugreport.cgi?bug=26616
-   (in guile-2.2, it doesn't hang, but still behaves very badly)
+   (in guile-2.2, it doesn't hang, but still behaves very badly).
  
 0.3) Opencog should be built with `link-grammar-5.4.3` or newer.
    You can check it by running `link-parser --version`
@@ -213,9 +213,9 @@ Now, let's set up the **text-ingestion pipeline:**
    If you are working with Chinese texts, install:
    `pip install jieba` and then segment text:
    `run/jieba-segment.py PATH-IN PATH-OUT`. This python utility is in
-   the `run` directory.  It might be best to create modified versions
-   of the `run/ss-one.sh` and `run/mst-one.sh` scripts to invoke jieba;
-   This has not been done yet. Soon...
+   the `run` directory.  It might be best to create a modified version
+   of the `run/process-one.sh` script to invoke jieba; This has not
+   been done yet. Soon...
  
    Instead of using the `zh` or `yue` languages for sentence splitting,
    you will want to use `zh-pre` or `yue-pre` for the language; this
@@ -310,9 +310,8 @@ the right material to start, follow the next steps:
    ```
    Remember to change the variable `lang` to the respective language (ex: en). 
    If this command shows the error
-   ```
-    nc: invalid option -- 'N'
-   ```
+   > nc: invalid option -- 'N'
+   
    open `process-one.sh` and remove the -N option from the nc commands
    (some old version of netcat don't support this option).
 
@@ -476,7 +475,7 @@ version works well. To run it follow the next steps:
 
 1) Copy the following files from the `opencog/opencog/nlp/learn/run`
    directory into your working directory (if you don't have them 
-   already). Note that '??' stands for one of the languages:
+   already):
    - run-multiple-terminals.sh
    - launch-mst-parser.scm
    - utilities.scm
@@ -526,9 +525,8 @@ version works well. To run it follow the next steps:
    Remember to change the variable lang to the respective language. Wait
    a few days for data to accumulate. Once again, if the above command
    shows the error
-   ```
-      nc: invalid option -- 'N'
-   ```
+   > nc: invalid option -- 'N'
+   
    open `process-one.sh` and remove the -N option from the nc commands.
    
    If the process is stopped for any reason, you can just re-run these
@@ -653,7 +651,7 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
    line in *common.yml* file
 
 5) Add these lines to *~/.bashrc* at *$HOME* of your host OS (change paths to your
-   own) and run source *~/.bashrc*
+   own) and run `source ~/.bashrc`.
    ```
    export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
    export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
