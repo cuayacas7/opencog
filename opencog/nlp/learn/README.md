@@ -83,7 +83,7 @@ you have two options:
    1. You can choose to install everything directly on your machine,
    in which case you should just continue reading this section, or
 
-  2. You can follow the instructions in the [Setup a Docker Container](set-up-a-docker-container)
+  2. You can follow the instructions in the [Seting up a Docker Container](setting-up-a-docker-container)
   section below to setup a docker container with all the environment
   needed to run the ULL ready for you to use.
 
