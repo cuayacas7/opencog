@@ -2,10 +2,9 @@ Language Learning
 =================
 Linas Vepstas December 2013
 
-Updated April 2018 (Claudia Castillo & Andres Suarez)
+Updated April 2018
 
-Current project, under construction. See the [language learning wiki]
-(http://wiki.opencog.org/w/Language_learning)
+Current project, under construction. See the [language learning wiki](http://wiki.opencog.org/w/Language_learning)
 for an alternate overview.
 
 Table of Contents
@@ -25,23 +24,28 @@ dictionaries for different languages, and possibly do some rudimentary
 semantic extraction. The primary design point is that the learning is
 to be done in an unsupervised fashion. A sketch of the theory that
 enables this can be found in the paper "Language Learning", B. Goertzel
-and L. Vepstas (2014) on [ArXiv abs/1401.3372](https://arxiv.org/abs/1401.3372)
+and L. Vepstas (2014) on [ArXiv abs/1401.3372](https://arxiv.org/abs/1401.3372).
 A shorter sketch is given below. Most of this README concerns the
 practical details of configuring and operating the system, and some
 diary-like notes about system configuration and operation. A diary of
 scientific notes and results is in the `learn-lang-diary` directory.
 
 The basic algorithmic steps, as implemented so far, are as follows:
-A) Ingest a lot of raw text, such as novels and narrative literature,
-   and count the occurrence of nearby word-pairs.
-B) Compute the mutual information (mutual entropy) between the word-pairs.
-C) Use a Minimum-Spanning-Tree algorithm to obtain provisional parses
-   of sentences. This requires ingesting a lot of raw text, again.
-   (Independently of step A)
-D) Extract linkage disjuncts from the parses, and count their frequency.
-E) Use maximum-entropy principles to merge similar linkage disjuncts.
-   This will also result in sets of similar words. Presumably, the
-   sets will roughly correspond to nouns, verbs, adjectives, and so-on.
+
+>A) Ingest a lot of raw text, such as novels and narrative literature,
+>   and count the occurrence of nearby word-pairs.
+>
+>B) Compute the mutual information (mutual entropy) between the word-pairs.
+>
+>C) Use a Minimum-Spanning-Tree algorithm to obtain provisional parses
+>   of sentences. This requires ingesting a lot of raw text, again.
+>   (Independently of step A)
+>
+>D) Extract linkage disjuncts from the parses, and count their frequency.
+>
+>E) Use maximum-entropy principles to merge similar linkage disjuncts.
+>   This will also result in sets of similar words. Presumably, the
+>   sets will roughly correspond to nouns, verbs, adjectives, and so-on.
 
 Currently, the software implements steps A, B, C and D. Step E is
 a topic of current research; its not entirely clear what the best
@@ -76,17 +80,17 @@ This section describes how to set up the atomspace to collect
 statistics. Most of it revolves around setting up postgres, and for this
 you have two options:
 
-  A. You can choose to install everything directly on your machine,
-  in which case you should just continue reading this section, or
+>  A. You can choose to install everything directly on your machine,
+>  in which case you should just continue reading this section, or
+>
+>  B. You can follow the instructions in the 'Setup a Docker Container'
+>  section below to setup a docker container with all the environment
+>  needed to run the ULL ready for you to use.
 
-  B. You can follow the instructions in the 'Setup a Docker Container'
-  section below to setup a docker container with all the environment
-  needed to run the ULL ready for you to use.
-
-If you choose the second option go to the section 'Bulk Text Parsing'
+If you choose the second option go to the section [Bulk Text Parsing](#bulk-text-parsing)
 once you have your container working.
 
-Pre-installations:
+**Pre-installations:**
  
 0.0) Optional. If you plan to run the pipeline on multiple
    different languages, it can be convenient, for various reasons,
@@ -123,10 +127,9 @@ Pre-installations:
  
 0.3) Opencog should be built with `link-grammar-5.4.3` or newer.
    You can check it by running `link-parser --version`
-   If not, this version is available at:
-   https://www.abisource.com/projects/link-grammar/
+   If not, this version is available [here](https://www.abisource.com/projects/link-grammar/).
 
-Now, let's set up the text-ingestion pipeline:
+Now, let's set up the **text-ingestion pipeline:**
 
 1) Set up and configure postgres, as described in
    `atomspace/opencog/persist/sql/README.md`
@@ -157,9 +160,9 @@ Now, let's set up the text-ingestion pipeline:
    ```
      guile -l launch-pair-count.scm  -- --lang en --db learn_pairs --user opencog_user --password cheese
    ```
-   The --user option is needed only if the database owner is different from the
+   The *--user* option is needed only if the database owner is different from the
    current user.
-   --password is also optional, not needed if no password was setup for the database
+   *--password* is also optional, not needed if no password was setup for the database
 
 5) Verify that the language processing pipeline works. Try sending it input by running
    the following in a second terminal:
@@ -175,7 +178,7 @@ Now, let's set up the text-ingestion pipeline:
    echo -e "(observe-text \"Lietuvos žydų kilmės žurnalistas\")" |nc localhost 17005
 ```
 
-   Note: 17005 is the default port for the REPL server in English. 
+   *Note:* 17005 is the default port for the REPL server in English. 
    This should result in activity on the cogserver and on the database:
    the "observe text" scheme code sends the text for parsing,
    counts the returned word-pairs, and stores them in the database.
@@ -204,9 +207,8 @@ Now, let's set up the text-ingestion pipeline:
    file to suit your whims in RAM usage and time spent in GC.
 
 
-OBS) The current pipeline for Chinese text requires word segmentation
-   to be performed outside of OpenCog. This can be done using jieba
-   https://github.com/fxsjy/jieba 
+**OBS)** The current pipeline for Chinese text requires word segmentation
+   to be performed outside of OpenCog. This can be done using [jieba](https://github.com/fxsjy/jieba).
    
    If you are working with Chinese texts, install:
    `pip install jieba` and then segment text:
@@ -252,7 +254,7 @@ the right material to start, follow the next steps:
    directory inside your working directory. The scripts used in this
    section use by default the name `beta-pages` for such a directory,
    so if you want to use a different name make sure you change the
-   respective path inside the `text-process` script. Also, keep in
+   respective path inside the `text-process.sh` script. Also, keep in
    mind that the files will be removed from the folder after being
    processed, so make sure you keep a back-up of them somewhere else
    (you don't want to mess up the original files after all the work
@@ -623,9 +625,9 @@ Setting up a Docker Container
 Before you follow the next steps make sure you have cloned the repositories
 and installed OpenCog (opencog, atomspace, cogutil) in your machine.
 
-1) Download and set up docker from https://docs.docker.com/install/
-   If you are using Linux, also install docker-compose from
-   https://docs.docker.com/compose/install/ or by:
+1) Download and set up docker from [here](https://docs.docker.com/install/).
+   If you are using Linux, also install docker-compose from [here](https://docs.docker.com/compose/install/),
+   or by:
    ```
    ~$ sudo pip install -U docker-compose
    ```
@@ -647,12 +649,11 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
    ~$ mkdir -p $HOME/path/to/where/you/want/to/save/ccache/output
    ```
 
-   Optionally you can instead just comment out the 
-   - $CCACHE_DIR:/home/opencog/.ccache
-   line in common.yml file
+   Optionally you can instead just comment out the `$CCACHE_DIR:/home/opencog/.ccache`
+   line in *common.yml* file
 
-5) Add these lines to ~/.bashrc at $HOME of your host OS (change paths to your
-   own) and run source ~/.bashrc
+5) Add these lines to *~/.bashrc* at *$HOME* of your host OS (change paths to your
+   own) and run source *~/.bashrc*
    ```
    export OPENCOG_SOURCE_DIR=$HOME/path/to/opencog
    export ATOMSPACE_SOURCE_DIR=$HOME/path/to/atomspace
@@ -680,7 +681,7 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
     $ guile -l launch-pair-count.scm  -- --lang en --db learn_pairs --user opencog_user --password cheese
    ```
    Use tmux to create parallel sessions of the container. If you are not familiar with
-   it you can use this cheatsheet https://gist.github.com/MohamedAlaa/2961058
+   it you can use this cheatsheet in [here](https://gist.github.com/MohamedAlaa/2961058).
 
    c) Send input to the pipeline:
    ```
