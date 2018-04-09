@@ -640,7 +640,7 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
 3) Enter the opencog directory and build your container:
    ```
    ~$ cd docker/opencog/
-   ~/docker/opencog$ ./docker-build.sh -cpt #TO BE CHANGED TO A SPECIFIC FLAG
+   ~/docker/opencog$ ./docker-build.sh -a
    ```
 
 4) Create a directory in your machine to store code that will make building
@@ -693,5 +693,6 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
     $ psql test
     test=# SELECT * FROM atoms;
     ```
-IF EVERYTHING WORKED FINE YOU ARE READY TO WORK (go to Bulk Text Parsing),
-OTHERWISE GO BACK TO STEP 0 (or fix your bug if you happen to know what went wrong)!!
+IF EVERYTHING WORKED FINE YOU ARE READY TO WORK (go to [Bulk Text Parsing](#bulk-text-parsing)),
+OTHERWISE GO BACK TO STEP 0!!
+(Or fix your bug if you happen to know what went wrong)
