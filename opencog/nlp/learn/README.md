@@ -132,7 +132,7 @@ once you have your container working.
 Now, let's set up the **text-ingestion pipeline:**
 
 1) Set up and configure postgres, as described in
-   `atomspace/opencog/persist/sql/README.md`
+   [atomspace/opencog/persist/sql/README.md](https://github.com/opencog/atomspace/tree/master/opencog/persist/sql)
 
 2) Test that your previous step was successful. Create and initialize
    a database. Pick any name you want; here it is `learn_pairs`.
@@ -152,7 +152,7 @@ Now, let's set up the **text-ingestion pipeline:**
 ```
 
 4) Start the REPL server. Eventually, you can use the
-   `run-server-parse.sh` script in the `run` directory to do this,
+   `run-multiple-terminals.sh` script in the `run` directory to do this,
    which creates a `byobu` session with different servers in different
    terminals so you can keep an eye on them. However, the first 
    time through, it is better to do it by hand. So, for now in a terminal
@@ -198,7 +198,7 @@ Now, let's set up the **text-ingestion pipeline:**
 
 7) Finally, there are some parameters you can optionally adjust before starting
    to feed the pipeline with real input. Take some time to read and understand
-   the scripts in the `run` directory (more on it will come in the next sections).
+   the scripts in the `run` and `scm` directories (more on it will come in the next sections).
    
    For instance, you might want to tune the forced garbage collection parameters.
    Currently, garbage collection is forced whenever the guile heap exceeds 750 MBytes;
@@ -244,10 +244,9 @@ battles, etc. that get mistaken for sentences, and leads to unusual
 deductions of grammar.  Thus, Wikipedia is not a good choice for
 learning text.
  
-There are various scripts in the `download` directory for downloading
-and pre-processing texts from Project Gutenberg, Wikipedia, and the
-"Archive of Our Own" fan-fiction website. Once you are sure you have
-the right material to start, follow the next steps:
+There are various scripts in the [download](https://github.com/opencog/opencog/tree/master/opencog/nlp/learn/download)
+directory for downloading and pre-processing texts from Project Gutenberg, Wikipedia, and the "Archive of Our Own"
+fan-fiction website. Once you are sure you have the right material to start, follow the next steps:
 
 
 1) Put all the training plain text files of the same language in one
@@ -286,8 +285,8 @@ the right material to start, follow the next steps:
    - config (the complete folder)
    - nonbreaking_prefixes (the complete folder)
 
-   Review the file `opencog/nlp/learn/run/README` if you want to have
-   a general understanding of what each of these scripts/files do.
+   Review the file [opencog/nlp/learn/run/README.md](https://github.com/opencog/opencog/tree/master/opencog/nlp/learn/run)
+   if you want to have a general understanding of what each of these scripts/files do.
 
 4) In your working directory run the following:
    ```
@@ -376,8 +375,8 @@ that the list membership functions are needed.
 
 Be sure to perform the postgres tuning recommendations found in
 various online postgres performance wikis, or in the
-`atomspace/opencog/persist/sql/README.md` file. See also 'Performance'
-section below.
+[atomspace/opencog/persist/sql/README.md](https://github.com/opencog/atomspace/tree/master/opencog/persist/sql)
+file. See also 'Performance' section below.
 
 
 Mutual Information of Word Pairs
@@ -388,9 +387,8 @@ mutual entropy between them. Follow the next steps to do so. Note that
 if the parsing is interrupted, you can restart the various scripts; they
 will automatically pick up where they left off.
 
-1) Copy the following files from the `opencog/opencog/nlp/learn/run`
-   directory into your working directory (if you don't have them 
-   already):
+1) Copy the following files from the [opencog/opencog/nlp/learn/run](https://github.com/opencog/opencog/tree/master/opencog/nlp/learn/run)
+   directory into your working directory (if you don't have them already):
    - compute-mi.scm
    - utilities.scm
 
@@ -473,9 +471,8 @@ MI have been accomplished.
 The minimum spanning tree code is in `scm/mst-parser.scm`. The current
 version works well. To run it follow the next steps:
 
-1) Copy the following files from the `opencog/opencog/nlp/learn/run`
-   directory into your working directory (if you don't have them 
-   already):
+1) Copy the following files from the [opencog/opencog/nlp/learn/run](https://github.com/opencog/opencog/tree/master/opencog/nlp/learn/run)
+   directory into your working directory (if you don't have them already):
    - run-multiple-terminals.sh
    - launch-mst-parser.scm
    - utilities.scm
@@ -486,8 +483,8 @@ version works well. To run it follow the next steps:
    - config (the complete folder)
    - nonbreaking_prefixes (the complete folder)
 
-   Review the file `opencog/nlp/learn/run/README` if you want to have
-   a general understanding of what each of these scripts/files do.
+   Review the file [opencog/nlp/learn/run/README](https://github.com/opencog/opencog/tree/master/opencog/nlp/learn/run)
+   if you want to have a general understanding of what each of these scripts/files do.
 
 2) Copy again all your text files, now to the `gamma-pages` directory
    (or edit `text-process.sh` and change the corresponding directory
