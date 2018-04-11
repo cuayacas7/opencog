@@ -87,7 +87,7 @@ sleep 2;
 tmux new-window -n 'telnet' "rlwrap telnet localhost $PORT; $SHELL"
 
 # Parse
-# ./wiki-ss-en.sh
+# ./text-process.sh
 tmux new-window -n 'parse' '$SHELL'
 
 # Spare
