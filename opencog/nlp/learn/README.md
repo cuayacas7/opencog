@@ -664,7 +664,7 @@ Before you follow the next steps make sure you have cloned the repositories from
    $ /tmp/octool -bi
    ```
    *Note*: It is only necessary to install opencog inside the container,
-   cogutil and atomspace are installed by default when creating the images.
+   cogutil and atomspace are installed by default when the images are created.
    
 8) Test that everything is working:
 
@@ -695,7 +695,24 @@ Before you follow the next steps make sure you have cloned the repositories from
     The words from the sentence "*This is a test*" should appear inside the table below the *name* column.
     
 IF EVERYTHING WORKED FINE YOU ARE READY TO WORK (go to [Bulk Text Parsing](#bulk-text-parsing)),
-OTHERWISE GO BACK TO STEP 0 (Or fix your bug if you happen to know what went wrong)!!
+OTHERWISE GO BACK TO STEP 0 (or fix your bug if you happen to know what went wrong)!!
 
-*Note*: The first 5 steps are only necessary the first time you install the docker container.
-Afterwards, you just need to follow steps 6 and 7 every time you want to use your container.
+*Note 1*: Steps 1-5 are only necessary the first time you install the docker container.
+Afterwards, you just need to follow steps 6 and 7 every time you want to use a new container.
+
+*Note 2*: Keep in mind that everytime you run `docker-compose run dev` it will create a new instance of *opencog*
+but the same instances of *postgres* and *relex* will be running on the background. Use (Ctrl+D) to exit a container.
+Some usefull commands for managing your containers on your local machine are listed below:
+  -`docker ps`                     To see the list of all the active containers (it shows *container_ID*)
+  -`docker ps -a`                  To see the list of all the existing containers
+  -`docker attach container_ID`    To "log-in" to an existing container (for example an existing instance of *opencog*)
+  -`docker stop container_ID`      To stop a running container.
+  -`docker stop $(docker ps -q)`   To stop all running containers.
+  -`docker kill container_ID`      To kill a running container.
+  -`docker rm container_ID`        To delete an existing but inactive container.
+  -`docker rm -f container_ID`     To delete a running container (it will kill it first).
+  
+**OBS)** DO NOT try to delete all running containers unless strictly necessary because it will delete the *postgres* instance as well, which means losing all your databases!!!
+
+*Note 3*: Remember to always close any cogserver (Ctrl+D) sessions you have started before continuing,
+otherwise you will have problems accessing your databases later.
