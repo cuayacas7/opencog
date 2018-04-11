@@ -28,11 +28,11 @@ args=("$@")
 if [ "$1" = "pairs" ]
 then
    launcher=launch-pair-count.scm
-   port_ini=1700
+   port_ini=17000
 elif [ "$1" = "mst" ]
 then
    launcher=launch-mst-parser.scm
-   port_ini=1900
+   port_ini=19000
 else
    echo "Usage: ./run-multiple-terminals.sh <mode> <language> <db_name> [<username>] [<password>]"
    echo "<mode> must be either pairs or mst"
@@ -64,7 +64,7 @@ case $2 in
       echo "<language> must be one of: en, fr, lt, pl, yue, zh"
       exit 0
 esac
-PORT=$port_ini$port_end
+PORT=$(($port_ini + $port_end))
 
 # Start multiple sessions (use byobu so that the scroll bars actually work)
 # Call launch-??.scm to start cogserver
