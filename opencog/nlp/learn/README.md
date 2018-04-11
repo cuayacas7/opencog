@@ -617,8 +617,7 @@ but for now you are on your own.. Good luck!!
 Setting up a Docker Container
 -----------------------------
 
-Before you follow the next steps make sure you have cloned the repositories
-and installed OpenCog (opencog, atomspace, cogutil) in your machine.
+Before you follow the next steps make sure you have cloned the repositories from OpenCog (opencog, atomspace, cogutil) in your machine.
 
 1) Download and set up docker from [here](https://docs.docker.com/install/).
    If you are using Linux, also install docker-compose from [here](https://docs.docker.com/compose/install/),
@@ -655,16 +654,18 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
    export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutil
    export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`
    ```
-
-6) Run the container, build and install opencog in it:
+6) Run the container:
    ```
    ~$ cd docker/opencog/
    ~/docker/opencog$ docker-compose run dev
    ```
-7) Build and install opencog by running
+7) Build and install opencog by running:
    ```
    $ /tmp/octool -bi
    ```
+   *Note*: It is only necessary to install opencog inside the container,
+   cogutil and atomspace are installed by default when creating the images.
+   
 8) Test that everything is working:
 
    a) Create and format a database (password is cheese):
@@ -694,5 +695,7 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
     The words from the sentence "*This is a test*" should appear inside the table below the *name* column.
     
 IF EVERYTHING WORKED FINE YOU ARE READY TO WORK (go to [Bulk Text Parsing](#bulk-text-parsing)),
-OTHERWISE GO BACK TO STEP 0!!
-(Or fix your bug if you happen to know what went wrong)
+OTHERWISE GO BACK TO STEP 0 (Or fix your bug if you happen to know what went wrong)!!
+
+*Note*: The first 5 steps are only necessary the first time you install the docker container.
+Afterwards, you just need to follow steps 6 and 7 every time you want to use your container.
