@@ -656,13 +656,16 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
    export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`
    ```
 
-6) Run the container:
+6) Run the container, build and install opencog in it:
    ```
    ~$ cd docker/opencog/
    ~/docker/opencog$ docker-compose run dev
    ```
-
-7) Test that everything is working:
+7) Build and install opencog by running
+   ```
+   $ /tmp/octool -bi
+   ```
+8) Test that everything is working:
 
    a) Create and format a database (password is cheese):
    ```
@@ -685,9 +688,11 @@ and installed OpenCog (opencog, atomspace, cogutil) in your machine.
 
    d) Check that the input was registered in the database:
    ```
-    $ psql test
-    test=# SELECT * FROM atoms;
+    $ psql learn_pairs
+    learn_pairs=# SELECT * FROM atoms;
     ```
+    The words from the sentence "*This is a test*" should appear inside the table below the *name* column.
+    
 IF EVERYTHING WORKED FINE YOU ARE READY TO WORK (go to [Bulk Text Parsing](#bulk-text-parsing)),
 OTHERWISE GO BACK TO STEP 0!!
 (Or fix your bug if you happen to know what went wrong)
