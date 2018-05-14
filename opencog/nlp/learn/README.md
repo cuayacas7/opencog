@@ -631,11 +631,13 @@ Before you follow the next steps make sure you have cloned the repositories from
    ~$ git clone https://github.com/opencog/docker.git
    ```
 
-3) Enter the opencog directory and build your container:
+3) Enter the opencog directory and build your images:
    ```
    ~$ cd docker/opencog/
    ~/docker/opencog$ ./docker-build.sh -a
    ```
+   Make sure your user is in the docker group (`getent group docker`), otherwise you will get the error 
+   > Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: ...
 
 4) Create a directory in your machine to store code that will make building
    again the containers faster (change path to your own, ex: $HOME/.ccache):
@@ -654,19 +656,15 @@ Before you follow the next steps make sure you have cloned the repositories from
    export COGUTIL_SOURCE_DIR=$HOME/path/to/cogutil
    export CCACHE_DIR=$HOME/path/to/where/you/want/to/save/ccache/output`
    ```
+   If you are trying to install the container in a shared server insert these lines in the file *~/.profile* instead, and restart your session before continuing.
+   
 6) Run the container:
    ```
    ~$ cd docker/opencog/
    ~/docker/opencog$ docker-compose run dev
    ```
-7) Build and install opencog by running:
-   ```
-   $ /tmp/octool -bi
-   ```
-   *Note*: It is only necessary to install *opencog* inside the container,
-   *cogutil* and *atomspace* are installed by default when the images are created.
    
-8) Test that everything is working:
+7) Test that everything is working:
 
    a) Create and format a database (password is cheese):
    ```
@@ -697,15 +695,17 @@ Before you follow the next steps make sure you have cloned the repositories from
 IF EVERYTHING WORKED FINE YOU ARE READY TO WORK (go to [Bulk Text Parsing](#bulk-text-parsing)),
 OTHERWISE GO BACK TO STEP 0 (or fix your bug if you happen to know what went wrong)!!
 
-***Note 1***: Steps 1-5 are only necessary the first time you install the docker container.
-Afterwards, you just need to follow steps 6 and 7 every time you want to use a new container.
+***Note 1***: Steps 1-5 are only necessary the first time you install the docker container and images.
+Afterwards, you just need to follow steps 6 and 7 every time you want to create a new opencog container,
+or access directly your already existing contianer (see next note).
 
 ***Note 2***: Keep in mind that everytime you run `docker-compose run dev` it will create a new instance of *opencog*
 but the same instances of *postgres* and *relex* will be running on the background. Use (Ctrl+D) to exit a container.
 Some usefull commands for managing your containers on your local machine are listed below:
-  - `docker ps`                     To see the list of all the active containers (it shows *container_ID*)
-  - `docker ps -a`                  To see the list of all the existing containers
-  - `docker attach container_ID`    To "log-in" to an existing container (for example an existing instance of *opencog*)
+  - `docker ps`                     To see the list of all the active containers (it shows *container_ID*).
+  - `docker ps -a`                  To see the list of all the existing containers.
+  - `docker start container_ID`     To start an inactive existing container (for example an existing instance of *opencog.
+  - `docker attach container_ID`    To "log-in" to an running (existing active) container in a terminal.
   - `docker stop container_ID`      To stop a running container.
   - `docker stop $(docker ps -q)`   To stop all running containers.
   - `docker kill container_ID`      To kill a running container.
