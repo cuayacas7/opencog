@@ -1,10 +1,12 @@
 #! /bin/bash
 #
-# run-multiple-terminals.sh <mode> <language> <db_name> [<username>] [<password>]
+# run-shells.sh <mode> <language> [<db_name>] [<username>] [<password>]
 #
-# Start cogserver on the local machine
-# This runs tmux with byobu to multiplex several terminals;
-# Use F3 and F4 to swtich to the other terminals.
+# Run tmux with byobu to multiplex multiple terminals; start the
+# CogServer in one terminal, and suggest which processes to run
+# in others.
+#
+# Use F3 and F4 to switch to the other terminals.
 #
 
 # Work around an lxc-attach bug.
@@ -16,20 +18,28 @@ fi
 
 export LD_LIBRARY_PATH=/usr/local/lib/opencog/modules
 
-if [ $# -lt 3 ]
+if [ $# -lt 2 ]
 then 
-  echo "Usage: ./run-multiple-terminals.sh <mode> <language> <db_name> [<username>] [<password>]"
+  echo "Usage: ./run-shells.sh <mode> <language> [<db_name>] [<username>] [<password>]"
   exit 0
 fi
 
+# Get database credentials according to language
+source ./config/det-db-uri.sh $2
+
 # Get port number according to mode and language
 source ./config/det-port-num.sh $1 $2
-launcher=launch-cogserver.scm
 
 # Start multiple sessions (use byobu so that the scroll bars actually work)
-# Call launch-??.scm to start cogserver
-byobu new-session -d -n 'cntl' '$SHELL'
+byobu new-session -d -n 'cntl' \
+  'echo -e "\nControl shell; you might want to run 'top' here.\n"; $SHELL'
+
+# Start the cogserver
+launcher=launch-cogserver.scm
 case $# in
+   2)
+      byobu new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $db_name --user $db_user --password $db_pswd; $SHELL"
+      ;;
    3)
       byobu new-window -n 'cogsrv' "nice guile -l $launcher -- --mode $1 --lang $2 --db $3; $SHELL"
       ;;
@@ -42,20 +52,17 @@ case $# in
 esac
 sleep 2;
 
-
 # Telnet window
 tmux new-window -n 'telnet' "rlwrap telnet localhost $PORT; $SHELL"
 
-# Parse
-# ./text-process.sh
-tmux new-window -n 'parse' '$SHELL'
+# Submit counting/parsing scripts
+tmux new-window -n 'submit' \
+  'echo -e "\nYou might want to run ./process-word-pairs.sh or ./process-text.sh here.\n"; $SHELL'
 
 # Spare
-tmux new-window -n 'spare' '$SHELL'
+tmux new-window -n 'spare' 'echo -e "\nSpare-use shell.\n"; $SHELL'
 
 # Fix the annoying byobu display
 echo "tmux_left=\"session\"" > $HOME/.byobu/status
 echo "tmux_right=\"load_average disk_io date time\"" >> $HOME/.byobu/status
 tmux attach
-
-echo "Started"

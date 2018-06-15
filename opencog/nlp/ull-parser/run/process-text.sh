@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# text-process.sh <mode> <language>
+# process-text.sh <mode> <language>
 #
 # Batch word-pair-counting/MST-parsing script for a given language
 # Loop over all the files in 'beta-pages'/'gamma-pages' directory,
@@ -9,7 +9,7 @@
 
 if [ $# -ne 2 ]
 then 
-  echo "Usage: ./text-process.sh <mode> <language>"
+  echo "Usage: ./process-text.sh <mode> <language>"
   exit 0
 fi
 
@@ -22,7 +22,7 @@ case $1 in
       directory=gamma-pages
       ;;
    *)
-      echo "Usage: ./text-process.sh <mode> <language>"
+      echo "Usage: ./process-text.sh <mode> <language>"
       echo "<mode> must be either pairs or mst"
       exit 0
 esac

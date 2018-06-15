@@ -5,9 +5,10 @@
 # Submit a collection of sentences, one sentence at a time, to the
 # cogserver located on host ARGV[0] and port ARGV[1].  The sentences
 # are read from standard input, and must be arranged with one sentence
-# per line. The are sent to the cogserver using ARGV[2] as the command.
+# per line. They are sent to the cogserver using ARGV[2] as the command.
+# 
 # For word-pair counting, ARGV[2] is "observe-text"
-# For disjunct counting, ARGV[2] is "observe-mst"
+# For disjunct counting, ARGV[2] is "observe-mst" or "observe-mst-extra"
 # ARGV[3] and ARGV[4] are necessary arguments for parameter configuration
 # (see file process-one.sh to see them)
 #
