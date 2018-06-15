@@ -16,3 +16,6 @@ cp $OPENCOG_SOURCE_DIR/opencog/nlp/learn/run/config/* $dir_path/config/
 # Copy shared run files
 cp -pr $OPENCOG_SOURCE_DIR/opencog/nlp/learn/run/nonbreaking_prefixes $dir_path/
 cp $OPENCOG_SOURCE_DIR/opencog/nlp/learn/run/split-sentences.pl $dir_path/
+
+# Create directories for coping corpora
+mkdir -p beta-pages gamma-pages
